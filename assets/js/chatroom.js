@@ -46,6 +46,7 @@ function addLeftChatMessage(options = {}) {
   // set selected friend
   $('.friend').on('click', function() {
     receiverId = $(this).attr('data-user-id');
+    $('#main-content').addClass('main-visible');
     $('#initial-chat').fadeOut(function(){
       $('#chat-screen').fadeIn();
     })
