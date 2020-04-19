@@ -1,0 +1,43 @@
+<div class="message message-right">
+  <!-- Avatar -->
+  <div class="avatar avatar-sm ml-4 ml-lg-5 d-none d-lg-block">
+      <img class="avatar-img" src="images/12.jpg" alt="">
+  </div>
+
+  <!-- Message: body -->
+  <div class="message-body">
+      <!-- Message: row -->
+      <div class="message-row">
+          <div class="d-flex align-items-center justify-content-end">
+              <!-- Message: dropdown -->
+              <div class="dropdown">
+                  <a class="text-muted opacity-60 mr-3" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fe-more-vertical"></i>
+                  </a>
+                  <div class="dropdown-menu">
+                      <a class="dropdown-item d-flex align-items-center" href="#">
+                          Edit <span class="ml-auto fe-edit-3"></span>
+                      </a>
+                      <a class="dropdown-item d-flex align-items-center" href="#">
+                          Share <span class="ml-auto fe-share-2"></span>
+                      </a>
+                      <a class="dropdown-item d-flex align-items-center" href="#">
+                          Delete <span class="ml-auto fe-trash-2"></span>
+                      </a>
+                  </div>
+              </div>
+              <!-- Message: dropdown -->
+              <!-- Message: content -->
+              <div class="message-content bg-primary text-white">
+                  <div><%= data.message %></div>
+                  <div class="mt-1">
+                      <small class="opacity-65">8 mins ago</small>
+                  </div>
+              </div>
+              <!-- Message: content -->
+          </div>
+      </div>
+      <!-- Message: row -->
+  </div>
+  <!-- Message: body -->
+</div>

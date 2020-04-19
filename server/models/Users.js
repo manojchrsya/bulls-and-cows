@@ -2,27 +2,22 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
 const { Schema } = mongoose;
-const SALT_WORK_FACTOR = 10;
+// const SALT_WORK_FACTOR = 10;
 
 const UsersSchema = new Schema({
   name: { type: String, required: true },
-  mobile: { type: String, required: true },
-  email: String,
+  mobile: { type: String },
+  email: { type: String, required: true },
   dob: { type: Date },
   password: { type: String, required: true },
 });
 
-// encrypts the password before saving the user data
-UsersSchema.pre('save', function (next) {
-  const user = this;
-  bcrypt.genSalt(SALT_WORK_FACTOR, (error, salt) => {
-    if (error) return next(error);
-    bcrypt.hash(user.password, salt, (err, hash) => {
-      if (err) return next(err);
-      user.password = hash;
-      next();
-    });
-  });
-});
+UsersSchema.methods.generateHash = password => bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+
+// checking if password is valid
+// UsersSchema.methods.validPassword = password => bcrypt.compareSync(password, this.password);
+UsersSchema.methods.validPassword = function (password) {
+  return bcrypt.compareSync(password, this.password);
+};
 
 module.exports = mongoose.model('Users', UsersSchema);

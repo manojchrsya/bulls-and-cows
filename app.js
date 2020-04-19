@@ -1,9 +1,15 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
 const mongoose = require('mongoose');
 const compression = require('compression');
+const passport = require('passport');
+const MongoStore = require('connect-mongo')(session);
+const flash = require('connect-flash');
 const io = require('socket.io');
+const ejs = require('ejs');
 
 mongoose.Promise = global.Promise;
 require('dotenv').config();
@@ -29,23 +35,45 @@ conn.once('open', () => {
 
 // Create global app object
 const app = express();
-const users = require('./server/routes/users');
+const Routes = require('./server/routes');
+const Passport = require('./server/lib/passport');
+// eslint-disable-next-line no-new
+new Passport(passport);
 
 app.use(express.static('assets'));
+app.use(compression());
+
+// set up our express application
+// app.use(express.logger('dev')); // log every request to the console
+app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(compression());
-app.use(users);
 
+app.set('view engine', 'ejs'); // set up ejs for templating
 app.set('views', `${__dirname}/public`);
-app.set('view engine', 'ejs');
+// required for passport
+app.use(session({
+  secret: 'thisismysnapappproject',
+  resave: false,
+  saveUninitialized: true,
+  store: new MongoStore({ mongooseConnection: conn }),
+  cookie: { maxAge: 24 * 60 * 60 * 365 },
+})); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
 
-// / catch 404 and forward to error handler
 app.use((req, res, next) => {
-  const err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+  next();
 });
+app.use(new Routes(passport).loadRoutes());
+
+// catch 404 and forward to error handler
+// app.use((req, res, next) => {
+//   const err = new Error('Not Found');
+//   err.status = 404;
+//   next(err);
+// });
 
 // finally, let's start our server...
 const server = app.listen(process.env.PORT || 3000, () => {
@@ -59,29 +87,11 @@ let numUsers = 0;
 ioconn.on('connection', (socket) => {
   let addedUser = false;
   // when the client emits 'new message', this listens and executes
-  socket.on('new message', (data) => {
+  socket.on('new message', async (data) => {
+    const message = await ejs.renderFile('./public/partials/main-section/sections/right-message.ejs', { data });
     // we tell the client to execute 'new message'
     socket.broadcast.emit('new message', {
-      username: socket.username,
-      message: data,
-    });
-  });
-
-  // when the client emits 'add user', this listens and executes
-  socket.on('add user', (username) => {
-    if (addedUser) return;
-    // we store the username in the socket session for this client
-    socket.username = username;
-    // eslint-disable-next-line no-plusplus
-    ++numUsers;
-    addedUser = true;
-    socket.emit('login', {
-      numUsers,
-    });
-    // echo globally (all clients) that a person has connected
-    socket.broadcast.emit('user joined', {
-      username: socket.username,
-      numUsers,
+      message,
     });
   });
 

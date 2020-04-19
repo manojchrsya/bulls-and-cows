@@ -1,0 +1,82 @@
+<div id="chat-screen" style="display:none;" class="chat dropzone-form-js" data-dz-url="">
+  <!-- Chat: body -->
+  <div class="chat-body" >
+      <!-- Chat: Header -->
+      <%- include('./sections/header.ejs') %>
+      <!-- Chat: Header -->
+      <!-- Chat: Search -->
+      <div class="collapse border-bottom px-lg-8" id="chat-1-search">
+          <div class="container-xxl py-4 py-lg-6">
+              <div class="input-group">
+                  <input type="text" class="form-control form-control-lg" placeholder="Search this chat" aria-label="Search this chat">
+                  <div class="input-group-append">
+                      <button class="btn btn-lg btn-ico btn-secondary btn-minimal" type="submit">
+                          <i class="fe-search"></i>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- Chat: Search -->
+
+      <!-- Chat: Content-->
+      <div class="chat-content px-lg-8">
+          <div class="container-xxl py-6 py-lg-10 chat-container">
+              <!-- Message -->
+              <!-- Message: Typing -->
+              <div class="message">
+                  <!-- Avatar -->
+                  <a class="avatar avatar-sm mr-4 mr-lg-5" href="#" data-chat-sidebar-toggle="#chat-1-user-profile">
+                      <img class="avatar-img" src="images/7.jpg" alt="">
+                  </a>
+
+                  <!-- Message: body -->
+                  <div class="message-body">
+
+                      <!-- Message: row -->
+                      <div class="message-row">
+                          <div class="d-flex align-items-center">
+
+                              <!-- Message: content -->
+                              <div class="message-content bg-light">
+                                  <div>William is typing<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span></div>
+                              </div>
+                              <!-- Message: content -->
+
+                          </div>
+                      </div>
+                      <!-- Message: row -->
+
+                  </div>
+                  <!-- Message: body -->
+              </div>
+              <!-- Message: Typing -->
+          </div>
+          <!-- Scroll to end -->
+          <div class="end-of-chat"></div>
+      </div>
+      <!-- Chat: Content -->
+
+      <!-- Chat: DropzoneJS container -->
+      <div class="chat-files hide-scrollbar px-lg-8">
+          <div class="container-xxl">
+              <div class="dropzone-previews-js form-row py-4"></div>
+          </div>
+      </div>
+      <!-- Chat: DropzoneJS container -->
+
+      <!-- Chat: Footer -->
+      <%- include('./sections/footer') %>
+      <!-- Chat: Footer -->
+  </div>
+  <!-- Chat: body -->
+  <!-- Chat Details -->
+  <%- include('./sections/chat-details') %>
+  <!-- Chat Details -->
+  <!-- New members -->
+  <%- include('./sections/members') %>
+  <!-- New members -->
+  <!-- User's details -->
+  <%- include('./sections/user-details') %>
+  <!-- User's details -->
+</div>
