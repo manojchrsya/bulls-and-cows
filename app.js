@@ -83,6 +83,7 @@ const server = app.listen(process.env.PORT || 3000, () => {
 
 const ioconn = io(server);
 let numUsers = 0;
+const addedUser = false;
 // initializing the socker connection
 ioconn.on('connection', (socket) => {
   // when the client emits 'new message', this listens and executes
