@@ -17,7 +17,7 @@ require('dotenv').config();
 const config = require('./config');
 
 // connection to database
-const mongodbUri = `mongodb://${config.MONGO_HOST}`;
+const mongodbUri = config.MONGO_HOST;
 const mongooseOptions = { useNewUrlParser: true, useUnifiedTopology: true };
 if (config.MONGO_USER && config.MONGO_PASSWORD) {
   mongooseOptions.auth = {};
@@ -85,7 +85,6 @@ const ioconn = io(server);
 let numUsers = 0;
 // initializing the socker connection
 ioconn.on('connection', (socket) => {
-  let addedUser = false;
   // when the client emits 'new message', this listens and executes
   socket.on('new message', async (data) => {
     const message = await ejs.renderFile('./public/partials/main-section/sections/right-message.ejs', { data });
