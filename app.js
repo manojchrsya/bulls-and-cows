@@ -9,7 +9,8 @@ const passport = require('passport');
 const MongoStore = require('connect-mongo')(session);
 const flash = require('connect-flash');
 const io = require('socket.io');
-const ejs = require('ejs');
+
+const Socket = require('./server/lib/socket');
 
 mongoose.Promise = global.Promise;
 require('dotenv').config();
@@ -68,13 +69,6 @@ app.use((req, res, next) => {
 });
 app.use(new Routes(passport).loadRoutes());
 
-// catch 404 and forward to error handler
-// app.use((req, res, next) => {
-//   const err = new Error('Not Found');
-//   err.status = 404;
-//   next(err);
-// });
-
 // finally, let's start our server...
 const server = app.listen(process.env.PORT || 3000, () => {
   // eslint-disable-next-line no-console
@@ -82,43 +76,6 @@ const server = app.listen(process.env.PORT || 3000, () => {
 });
 
 const ioconn = io(server);
-let numUsers = 0;
-const addedUser = false;
+new Socket(ioconn);
 // initializing the socker connection
-ioconn.on('connection', (socket) => {
-  // when the client emits 'new message', this listens and executes
-  socket.on('new message', async (data) => {
-    const message = await ejs.renderFile('./public/partials/main-section/sections/right-message.ejs', { data });
-    // we tell the client to execute 'new message'
-    socket.broadcast.emit('new message', {
-      message,
-    });
-  });
 
-  // when the client emits 'typing', we broadcast it to others
-  socket.on('typing', () => {
-    socket.broadcast.emit('typing', {
-      username: socket.username,
-    });
-  });
-
-  // when the client emits 'stop typing', we broadcast it to others
-  socket.on('stop typing', () => {
-    socket.broadcast.emit('stop typing', {
-      username: socket.username,
-    });
-  });
-
-  // when the user disconnects.. perform this
-  socket.on('disconnect', () => {
-    if (addedUser) {
-      // eslint-disable-next-line no-plusplus
-      --numUsers;
-      // echo globally that this client has left
-      socket.broadcast.emit('user left', {
-        username: socket.username,
-        numUsers,
-      });
-    }
-  });
-});

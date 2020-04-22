@@ -42,13 +42,11 @@ class Passport {
         // if no user is found, return the message
         // req.flash is the way to set flashdata using connect-flash
         if (!user) return done(null, false, req.flash('errors', ['No user found.']));
-
         // if the user is found but the password is wrong
-        // create the loginMessage and save it to session as flashdata
         if (!user.validPassword(password)) return done(null, false, req.flash('errors', ['Oops! Wrong password.']));
         // all is well, return successful user
         return done(null, user);
-      });
+      }).select('_id name email +password');
     }));
   }
 

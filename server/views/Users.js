@@ -21,7 +21,7 @@ class UserView {
 
   // eslint-disable-next-line class-methods-use-this
   async dashboard(req, res) {
-    const friends = await userInstance.list();
+    const friends = await userInstance.getFriendsByUserId(req.user);
     res.render('home', { user: req.user, friends });
   }
 }

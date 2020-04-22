@@ -46,6 +46,7 @@ function addLeftChatMessage(options = {}) {
   // set selected friend
   $('.friend').on('click', function() {
     receiverId = $(this).attr('data-user-id');
+    $chatContainer.html('');
     $('#main-content').addClass('main-visible');
     $('#initial-chat').fadeOut(function(){
       $('#chat-screen').fadeIn();
@@ -60,10 +61,28 @@ function addLeftChatMessage(options = {}) {
     $message.val('');
   })
 
-  socket.on('new message', (data) => {
-    if (data.message) {
-      $chatContainer.append(data.message);
-    }
-  });
 
+  const chat = {
+    init: function() {
+      this.addUser();
+      this.newMessage();
+    },
+    newMessage: function() {
+      socket.on('new message', (data) => {
+        if (data.message) {
+          $chatContainer.append(data.message);
+        }
+      });
+    },
+    addUser: function() {
+      try {
+        const userId = $("#tab-content-user").attr('data-user-id');
+        socket.emit('add user', { userId });
+      } catch(e) {
+        console.info(e.message);
+      }
+    }
+  };
+
+  chat.init();
 });
