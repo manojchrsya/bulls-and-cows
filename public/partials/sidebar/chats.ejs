@@ -85,7 +85,7 @@
               <nav class="nav d-block list-discussions-js mb-n6">
                   <!-- Chat link -->
                   <% friends.forEach((friend) => { %>
-                    <a class="text-reset nav-link p-0 mb-6 friend" href="#" data-user-id="<%= friend.id %>">
+                    <a class="text-reset nav-link p-0 mb-6 friend" href="#" user-data="<%= JSON.stringify(friend) %>" >
                         <div class="card card-active-listener">
                             <div class="card-body">
                                 <div class="media">

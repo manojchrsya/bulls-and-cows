@@ -6,15 +6,17 @@ const session = require('express-session');
 const mongoose = require('mongoose');
 const compression = require('compression');
 const passport = require('passport');
+const bluebird = require('bluebird');
 const MongoStore = require('connect-mongo')(session);
 const flash = require('connect-flash');
 const io = require('socket.io');
 
 const Socket = require('./server/lib/socket');
 
+global.Promise = bluebird;
 mongoose.Promise = global.Promise;
-require('dotenv').config();
 
+require('dotenv').config();
 const config = require('./config');
 
 // connection to database
@@ -76,6 +78,6 @@ const server = app.listen(process.env.PORT || 3000, () => {
 });
 
 const ioconn = io(server);
+// eslint-disable-next-line no-new
 new Socket(ioconn);
 // initializing the socker connection
-
