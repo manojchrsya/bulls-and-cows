@@ -10,7 +10,7 @@
       <div class="message-row">
           <div class="d-flex align-items-center justify-content-end">
               <!-- Message: dropdown -->
-              <div class="dropdown">
+              <!-- <div class="dropdown">
                   <a class="text-muted opacity-60 mr-3" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <i class="fe-more-vertical"></i>
                   </a>
@@ -25,13 +25,13 @@
                           Delete <span class="ml-auto fe-trash-2"></span>
                       </a>
                   </div>
-              </div>
+              </div> -->
               <!-- Message: dropdown -->
               <!-- Message: content -->
               <div class="message-content bg-primary text-white">
-                  <div><%= data.message %></div>
+                  <div><%= message %></div>
                   <div class="mt-1">
-                      <small class="opacity-65">8 mins ago</small>
+                      <small class="opacity-65"><%= timeAgo %></small>
                   </div>
               </div>
               <!-- Message: content -->

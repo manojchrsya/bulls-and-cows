@@ -1,4 +1,6 @@
 const ejs = require('ejs');
+const moment = require('moment');
+
 const ChatMessage = require('../controllers/ChatMessage');
 
 
@@ -25,18 +27,21 @@ class Socket {
 
   newMessage(socket) {
     socket.on('new message', async (data) => {
-      if (this.users[data.receiverId]) {
+      if (data.senderId && data.receiverId) {
+        data.timeAgo = moment().fromNow().toString();
         const [receiverMessage, senderMessage] = await Promise.all([
-          ejs.renderFile('./public/partials/main-section/sections/right-message.ejs', { data }),
-          ejs.renderFile('./public/partials/main-section/sections/left-message.ejs', { data }),
+          ejs.renderFile('./public/partials/main-section/sections/right-message.ejs', data),
+          ejs.renderFile('./public/partials/main-section/sections/left-message.ejs', data),
         ]);
         socket.emit('new message', {
           message: senderMessage, senderId: data.receiverId,
         });
-        socket.to(this.users[data.receiverId]).emit('new message', {
-          message: receiverMessage, senderId: data.senderId,
-        });
         await this.chatMessage.create(data);
+        if (this.users[data.receiverId]) {
+          socket.to(this.users[data.receiverId]).emit('new message', {
+            message: receiverMessage, senderId: data.senderId,
+          });
+        }
       }
     });
   }
@@ -63,9 +68,25 @@ class Socket {
 
   // eslint-disable-next-line class-methods-use-this
   loadMessages(socket) {
-    socket.on('load mesasges', (data) => {
+    socket.on('load mesasges', async (data) => {
       // eslint-disable-next-line no-console
-      console.log(data);
+      if (data.senderId && data.receiverId) {
+        const chatMessages = await this.chatMessage.getChatMessages(data);
+        const messages = [];
+        await Promise.mapSeries(chatMessages, async (chat) => {
+          let currentChat;
+          chat.timeAgo = moment(chat.createdOn).fromNow().toString();
+          if (chat.senderId === data.senderId) {
+            currentChat = await ejs.renderFile('./public/partials/main-section/sections/left-message.ejs', chat);
+          } else {
+            currentChat = await ejs.renderFile('./public/partials/main-section/sections/right-message.ejs', chat);
+          }
+          messages.push(currentChat);
+        });
+        socket.emit('new message', {
+          message: messages.join(''), senderId: data.receiverId,
+        });
+      }
     });
   }
 

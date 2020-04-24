@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const compression = require('compression');
 const passport = require('passport');
 const bluebird = require('bluebird');
+const lodash = require('lodash');
 const MongoStore = require('connect-mongo')(session);
 const flash = require('connect-flash');
 const io = require('socket.io');
@@ -14,6 +15,7 @@ const io = require('socket.io');
 const Socket = require('./server/lib/socket');
 
 global.Promise = bluebird;
+global._ = lodash;
 mongoose.Promise = global.Promise;
 
 require('dotenv').config();

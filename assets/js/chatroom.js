@@ -36,7 +36,7 @@ $(function() {
     newMessage: function() {
       socket.on('new message', (data) => {
         if (data.message && data.senderId === receiverId) {
-          $chatContainer.append(data.message);
+          $chatContainer.append(data.message).hide().fadeIn();
         }
       });
     },

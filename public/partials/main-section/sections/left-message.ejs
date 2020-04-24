@@ -14,16 +14,16 @@
               <!-- Message: content -->
               <div class="message-content bg-light">
                   <!-- <h6 class="mb-2">Matthew Wiggins</h6> -->
-                  <div><%= data.message %></div>
+                  <div><%= message %></div>
 
                   <div class="mt-1">
-                      <small class="opacity-65">8 mins ago</small>
+                      <small class="opacity-65"><%= timeAgo %></small>
                   </div>
               </div>
               <!-- Message: content -->
 
               <!-- Message: dropdown -->
-              <div class="dropdown">
+              <!-- <div class="dropdown">
                   <a class="text-muted opacity-60 ml-3" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <i class="fe-more-vertical"></i>
                   </a>
@@ -39,7 +39,7 @@
                           Delete <span class="ml-auto fe-trash-2"></span>
                       </a>
                   </div>
-              </div>
+              </div> -->
               <!-- Message: dropdown -->
 
           </div>
