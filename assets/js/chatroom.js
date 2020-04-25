@@ -35,17 +35,29 @@ $(function() {
     })
   });
   // set selected friend
-  $('.friend').on('click', function() {
+  $('.friend').on('click', function(e) {  
     const currentUser = JSON.parse($(this).attr('user-data'));
+    
+    // let chatHeight = $('.chat-container').height();
+    // let winHeight = $('window').height();
+    // let scrolTop = chatHeight - winHeight;
+
     receiverId = currentUser._id;
     $('#header-user-name').text(currentUser.name)
     $chatContainer.html('');
     socket.emit('load mesasges', { receiverId, senderId: userId });
     $('#main-content').addClass('main-visible');
-    $('#initial-chat, #user-settings').fadeOut(function(){
+    $('#initial-chat, #user-settings').fadeOut(function(){      
       $('#chat-screen').fadeIn();
     })
-  });
+    
+    $('nav.nav a').removeClass('active');
+    $(this).addClass('active');
+    $('.chat-content').animate({
+      scrollTop: 1000
+    }, 800);
+  }); 
+
   $chatForm.on('submit', function(e) {
     e.preventDefault();
     const message = $message.val();
