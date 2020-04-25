@@ -21,3 +21,4 @@
 - encrypt mesasge
 - change status once user get online or offline
 - handle error message and show status bar at top
+- manage contacts and contacts user  mappings
