@@ -24,6 +24,11 @@ class UserView {
     const friends = await userInstance.getFriendsByUserId(req.user);
     res.render('home', { user: req.user, friends });
   }
+
+  // eslint-disable-next-line class-methods-use-this
+  async uploadProfile(req, res) {
+    return res.send(req.file);
+  }
 }
 
 module.exports = UserView;

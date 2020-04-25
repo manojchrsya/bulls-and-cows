@@ -1,10 +1,12 @@
 const express = require('express');
 
 const Users = require('../views/Users');
+const Uploads = require('../lib/uploads');
 
-class routes {
-  // eslint-disable-next-line no-unused-vars
+class Routes extends Uploads {
+  // eslint-disable-next-line constructor-super
   constructor(passport) {
+    super();
     this.passport = passport;
     this.router = express.Router();
   }
@@ -16,6 +18,11 @@ class routes {
 
   loadRoutes() {
     this.router.get('/', this.isLoggedIn, this.getUserInstance().dashboard);
+
+    this.router.post('/profile/upload',
+      this.upload.single('image'),
+      this.getUserInstance().uploadProfile,
+    );
 
     this.router.get('/login', this.getUserInstance().login);
     this.router.post('/login', this.passport.authenticate('local-login', {
@@ -42,4 +49,4 @@ class routes {
   }
 }
 
-module.exports = routes;
+module.exports = Routes;

@@ -15,6 +15,7 @@
 - add setting page and add user info -- wip
 - user can able to see selected user info at right side baar
 - handle user's contacts and show them on contact list
+- implement logout functionality
 - search user from chat screen
 - remove user's socket id after disconnect
 - reconnect on disconnect the socket connection
