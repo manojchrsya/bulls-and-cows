@@ -2,12 +2,14 @@ const ejs = require('ejs');
 const moment = require('moment');
 
 const ChatMessage = require('../controllers/ChatMessage');
+const User = require('../controllers/Users');
 
 
 class Socket {
   constructor(ioconn) {
     this.users = {};
     this.chatMessage = new ChatMessage();
+    this.userInstance = new User();
     ioconn.on('connection', (socket) => {
       this.addUser(socket);
       this.newMessage(socket);
@@ -15,6 +17,7 @@ class Socket {
       this.stopTyping(socket);
       this.onDisconnect(socket);
       this.loadMessages(socket);
+      this.saveProfileData(socket);
     });
   }
 
@@ -85,6 +88,18 @@ class Socket {
         });
         socket.emit('new message', {
           message: messages.join(''), senderId: data.receiverId,
+        });
+      }
+    });
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  saveProfileData(socket) {
+    socket.on('save profile', async (data) => {
+      if (data.id) {
+        await this.userInstance.saveProfile(data);
+        socket.emit('save profile', {
+          message: 'profile updated successfully',
         });
       }
     });

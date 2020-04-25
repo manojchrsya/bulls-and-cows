@@ -12,7 +12,7 @@
 - change header value after selecting the chat user -- done
 - load last 10 message and show on chat screen -- done
 - handle case for offline user -- done
-- add setting page and add user info
+- add setting page and add user info -- wip
 - user can able to see selected user info at right side baar
 - handle user's contacts and show them on contact list
 - search user from chat screen
@@ -20,3 +20,4 @@
 - reconnect on disconnect the socket connection
 - encrypt mesasge
 - change status once user get online or offline
+- handle error message and show status bar at top

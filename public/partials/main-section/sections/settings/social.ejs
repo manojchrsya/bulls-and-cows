@@ -1,0 +1,93 @@
+<div class="card mb-6 mb-lg-8">
+  <div class="card-header position-relative">
+      <a href="#" class="text-reset d-block stretched-link collapsed" data-toggle="collapse" data-target="#profile-settings-social" aria-controls="profile-settings-social" aria-expanded="true">
+          <div class="row no-gutters align-items-center">
+              <!-- Title -->
+              <div class="col">
+                  <h5>Social</h5>
+                  <p>Update your profile details.</p>
+              </div>
+
+              <!-- Icon -->
+              <div class="col-auto">
+                  <i class="text-muted icon-md fe-share-2"></i>
+              </div>
+          </div>
+      </a>
+  </div>
+
+  <div id="profile-settings-social" class="collapse show" data-parent="#profile-settings">
+      <div class="card-body">
+
+          <form action="#" id="social-details">
+              <!-- Twitter -->
+              <div class="form-group">
+                  <label class="small" for="profile-twitter">Twitter</label>
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                          <div class="btn btn-ico btn-secondary btn-minimal">
+                              <i class="fe-twitter"></i>
+                          </div>
+                      </div>
+                      <input name="profile-twitter" type="text" value="<%= user.social.twitter %>" class="form-control form-control-lg" placeholder="Username" aria-label="Username">
+                  </div>
+              </div>
+
+              <!-- Facebook -->
+              <div class="form-group">
+                  <label class="small" for="profile-facebook">Facebook</label>
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                          <div class="btn btn-ico btn-secondary btn-minimal">
+                              <i class="fe-facebook"></i>
+                          </div>
+                      </div>
+                      <input name="profile-facebook" type="text" value="<%= user.social.facebook %>" class="form-control form-control-lg" placeholder="Username" aria-label="Username">
+                  </div>
+              </div>
+
+              <!-- Instagram -->
+              <div class="form-group">
+                  <label class="small" for="profile-instagram">Instagram</label>
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                          <div class="btn btn-ico btn-secondary btn-minimal">
+                              <i class="fe-instagram"></i>
+                          </div>
+                      </div>
+                      <input name="profile-instagram" type="text" value="<%= user.social.instagram %>" class="form-control form-control-lg" placeholder="Username" aria-label="Username">
+                  </div>
+              </div>
+
+              <!-- Github -->
+              <div class="form-group">
+                  <label class="small" for="profile-github">Github</label>
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                          <div class="btn btn-ico btn-secondary btn-minimal">
+                              <i class="fe-github"></i>
+                          </div>
+                      </div>
+                      <input name="profile-github" type="text" value="<%= user.social.github %>" class="form-control form-control-lg" placeholder="Username" aria-label="Username">
+                  </div>
+              </div>
+
+              <!-- Slack -->
+              <div class="form-group">
+                  <label class="small" for="profile-slack">Slack</label>
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                          <div class="btn btn-ico btn-secondary btn-minimal">
+                              <i class="fe-slack"></i>
+                          </div>
+                      </div>
+                      <input name="profile-slack" type="text" value="<%= user.social.slack %>" class="form-control form-control-lg" placeholder="Username" aria-label="Username">
+                  </div>
+              </div>
+
+              <button class="btn btn-lg btn-primary btn-block" type="submit">Save Preferences</button>
+          </form>
+      </div>
+  </div><!-- .collapse -->
+
+</div>

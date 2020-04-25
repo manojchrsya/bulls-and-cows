@@ -23,7 +23,7 @@ const config = require('./config');
 
 // connection to database
 const mongodbUri = config.MONGO_HOST;
-const mongooseOptions = { useNewUrlParser: true, useUnifiedTopology: true };
+const mongooseOptions = { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false };
 if (config.MONGO_USER && config.MONGO_PASSWORD) {
   mongooseOptions.auth = {};
   mongooseOptions.auth.user = config.MONGO_USER;

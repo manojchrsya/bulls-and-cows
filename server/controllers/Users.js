@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const User = require('../models/Users');
 
 class UserController {
@@ -24,6 +25,14 @@ class UserController {
     return User.find(query).select({
       name: 1, email: 1, dob: 1, mobile: 1,
     });
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  async saveProfile(options = {}) {
+    const fields = ['id', 'name', 'mobile', 'bio', 'social.twitter', 'social.facebook',
+      'social.instagram', 'social.github', 'social.slack'];
+    const profileData = _.pickBy(_.pick(options, fields), _.identity);
+    return User.findOneAndUpdate({ _id: options.id }, profileData, { upsert: true });
   }
 }
 

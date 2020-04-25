@@ -1,0 +1,62 @@
+<div class="chat" id="user-settings" style="display: none;">
+  <!-- Chat: body -->
+  <div class="chat-body">
+      <!-- Chat: Header -->
+      <div class="chat-header border-bottom py-4 py-lg-6 px-lg-8">
+          <div class="container-xxl">
+              <div class="row align-items-center">
+                  <!-- Close chat(mobile) -->
+                  <div class="col-3 d-xl-none">
+                      <ul class="list-inline mb-0">
+                          <li class="list-inline-item">
+                              <a class="text-muted px-0" href="#" data-chat="open">
+                                  <i class="icon-md fe-chevron-left"></i>
+                              </a>
+                          </li>
+                      </ul>
+                  </div>
+                  <!-- Chat photo -->
+                  <div class="col-6 col-xl-6">
+                      <div class="media text-center text-xl-left">
+                          <div class="media-body align-self-center text-truncate">
+                              <h6 class="text-truncate mb-n1">Settings</h6>
+                              <small class="text-muted">Update your profile details</small>
+                          </div>
+                      </div>
+                  </div>
+              </div><!-- .row -->
+              <div class="alert alert-success mt-2 alert-dismissible" style="display: none;" id="profile-success" role="alert">
+                Profile details saved successfully.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+          </div>
+      </div>
+
+      <!-- Chat: Header -->
+      <!-- Chat: Content-->
+      <div class="chat-content px-lg-8">
+          <div class="container-xxl py-6 py-lg-10">
+              <!-- Accordion -->
+              <div class="accordion modified-accordion mb-n6 mb-lg-8" id="profile-settings">
+                  <div class="card-columns">
+                      <!-- Card -->
+                      <%- include('./sections/settings/profile.ejs') %>
+                      <!-- Card -->
+
+                      <!-- Card -->
+                      <%- include('./sections/settings/social.ejs') %>
+                      <!-- Card -->
+                  </div>
+              </div>
+              <!-- Accordion -->
+
+          </div>
+      </div>
+      <!-- Chat: Content -->
+
+  </div>
+  <!-- Chat: body -->
+
+</div>

@@ -9,7 +9,15 @@ const UsersSchema = new Schema({
   mobile: { type: String },
   email: { type: String, required: true },
   dob: { type: Date },
+  bio: { type: String },
   password: { type: String, required: true, select: false },
+  social: {
+    twitter: { type: String },
+    facebook: { type: String },
+    instagram: { type: String },
+    github: { type: String },
+    slack: { type: String },
+  },
 });
 
 UsersSchema.methods.generateHash = password => bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
