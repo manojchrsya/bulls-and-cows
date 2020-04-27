@@ -35,28 +35,47 @@ $(function() {
     })
   });
   // set selected friend
-  $('.friend').on('click', function(e) {  
+  $('.friend').on('click', function(e) {
     const currentUser = JSON.parse($(this).attr('user-data'));
-    
-    // let chatHeight = $('.chat-container').height();
-    // let winHeight = $('window').height();
-    // let scrolTop = chatHeight - winHeight;
-
     receiverId = currentUser._id;
+    $('nav.nav a').removeClass('active');
+    $(this).addClass('active');
     $('#header-user-name').text(currentUser.name)
     $chatContainer.html('');
     socket.emit('load mesasges', { receiverId, senderId: userId });
     $('#main-content').addClass('main-visible');
-    $('#initial-chat, #user-settings').fadeOut(function(){      
+    $('#initial-chat, #user-settings').fadeOut(function(){
       $('#chat-screen').fadeIn();
     })
-    
-    $('nav.nav a').removeClass('active');
-    $(this).addClass('active');
     $('.chat-content').animate({
       scrollTop: 1000
     }, 800);
-  }); 
+  });
+  $profileDropZone = document.querySelector('.dropzone-profile');
+  const url = $profileDropZone.getAttribute('data-dz-url');
+  const clickable = $profileDropZone.querySelector('.dropzone-button-js').id;
+  const profileDropZone = new Dropzone($profileDropZone, {
+    url, clickable: `#${clickable}`
+  });
+  profileDropZone.on('success', (file) => {
+    file.previewElement.innerHTML = "";
+
+  });
+  profileDropZone.on('error', (error, message) => {
+    console.log(message);
+  });
+  // [].forEach.call(document.querySelectorAll('.dropzone-form-js'), (el) => {
+    //   const clickable = el.querySelector('.dropzone-button-js').id;
+    //   const url = el.getAttribute('data-dz-url');
+    //   const previewsContainer = el.querySelector('.dropzone-previews-js');
+
+    //   const myDropzone = new Dropzone(el, {
+    //     url,
+    //     previewTemplate: template ? template.innerHTML : '',
+    //     previewsContainer,
+    //     clickable: `#${clickable}`,
+    //   });
+    // });
 
   $chatForm.on('submit', function(e) {
     e.preventDefault();
