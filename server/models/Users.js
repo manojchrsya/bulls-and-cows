@@ -18,6 +18,13 @@ const UsersSchema = new Schema({
     github: { type: String },
     slack: { type: String },
   },
+}, { toObject: { virtuals: true } });
+
+UsersSchema.virtual('profilePic', {
+  ref: 'FileResource',
+  localField: '_id',
+  foreignField: 'ownerId',
+  justOne: true, // for many-to-1 relationships
 });
 
 UsersSchema.methods.generateHash = password => bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);

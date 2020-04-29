@@ -55,7 +55,7 @@ $(function() {
   const url = $profileDropZone.getAttribute('data-dz-url');
   const clickable = $profileDropZone.querySelector('.dropzone-button-js').id;
   const profileDropZone = new Dropzone($profileDropZone, {
-    url, clickable: `#${clickable}`
+    url, clickable: `#${clickable}`, paramName: 'profile'
   });
   profileDropZone.on('success', (file) => {
     file.previewElement.innerHTML = "";

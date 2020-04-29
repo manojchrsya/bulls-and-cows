@@ -1,7 +1,8 @@
 const _ = require('lodash');
 const User = require('../models/Users');
+const FileResource = require('./FileResource');
 
-class UserController {
+class UserController extends FileResource {
   // eslint-disable-next-line class-methods-use-this
   async list(options = {}) {
     const query = {};
@@ -33,6 +34,19 @@ class UserController {
       'social.instagram', 'social.github', 'social.slack'];
     const profileData = _.pickBy(_.pick(options, fields), _.identity);
     return User.findOneAndUpdate({ _id: options.id }, profileData, { upsert: true });
+  }
+
+  async saveProfilePic(data, options) {
+    const fileData = {
+      name: data.filename,
+      originalName: data.originalname,
+      mime: data.mimetype,
+      path: data.path,
+      url: `${config.HOST}/${data.path.replace('assets/', '')}`,
+      ownerId: options.ownerId,
+      ownerType: options.ownerType,
+    };
+    return this.saveFileDetails(fileData);
   }
 }
 

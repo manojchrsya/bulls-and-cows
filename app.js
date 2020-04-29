@@ -19,12 +19,11 @@ global._ = lodash;
 mongoose.Promise = global.Promise;
 
 require('dotenv').config();
-const config = require('./config');
-
+global.config = require('./config');
 // connection to database
 const mongodbUri = config.MONGO_HOST;
 const mongooseOptions = { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false };
-if (config.MONGO_USER && config.MONGO_PASSWORD) {
+if (global.config.MONGO_USER && config.MONGO_PASSWORD) {
   mongooseOptions.auth = {};
   mongooseOptions.auth.user = config.MONGO_USER;
   mongooseOptions.auth.password = config.MONGO_PASSWORD;

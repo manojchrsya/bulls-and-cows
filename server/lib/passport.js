@@ -24,7 +24,7 @@ class Passport {
     this.passport.deserializeUser((id, done) => {
       User.findById(id, (err, user) => {
         done(err, user);
-      });
+      }).populate('profilePic', ['name', 'url']);
     });
   }
 

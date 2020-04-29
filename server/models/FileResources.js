@@ -9,6 +9,8 @@ const FileResourceSchema = new Schema({
   path: { type: String },
   originalName: { type: String },
   mime: { type: String },
+  ownerId: { type: String },
+  ownerType: { type: String },
 }, { timestamps: { createdAt: 'createdOn', updatedAt: 'updatedOn' } });
 
 

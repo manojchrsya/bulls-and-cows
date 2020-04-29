@@ -1,13 +1,18 @@
 const multer = require('multer');
+const fs = require('fs-extra');
 
 class Uploads {
   constructor() {
     const storage = multer.diskStorage({
       destination: (req, file, cb) => {
-        cb(null, 'assets/uploads');
+        const path = `assets/uploads/${file.fieldname}`;
+        fs.mkdirsSync(path);
+        cb(null, path);
       },
       filename: (req, file, cb) => {
-        cb(null, `${file.fieldname} - ${Date.now()}`);
+        const extension = file.originalname.split('.').pop();
+        // eslint-disable-next-line no-underscore-dangle
+        cb(null, `${req.user._id}.${extension}`);
       },
     });
     this.upload = multer({ storage, fileFilter: this.fileFilter });

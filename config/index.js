@@ -3,4 +3,5 @@ module.exports = {
   MONGO_HOST: process.env.MONGO_HOST || 'localhost/servify',
   MONGO_USER: process.env.MONGO_USER || '',
   MONGO_PASSWORD: process.env.MONGO_PASSWORD || '',
+  HOST: process.env.HOST || '',
 };

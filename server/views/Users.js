@@ -27,7 +27,13 @@ class UserView {
 
   // eslint-disable-next-line class-methods-use-this
   async uploadProfile(req, res) {
-    return res.send(req.file);
+    const options = {
+      // eslint-disable-next-line no-underscore-dangle
+      ownerId: req.user._id,
+      ownerType: 'User',
+    };
+    const response = await userInstance.saveProfilePic(req.file, options);
+    return res.send(response);
   }
 }
 

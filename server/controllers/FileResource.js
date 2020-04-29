@@ -3,15 +3,12 @@ const Upload = require('../lib/uploads');
 
 class FileResourceController extends Upload {
   // eslint-disable-next-line class-methods-use-this
-  async create(options = {}) {
-    const data = {
-      name: options.name,
-      originalName: options.originalName,
-      mime: options.mime,
-      path: options.path,
-      url: options.url,
-    };
-    return new FileResource(data).save();
+  async saveFileDetails(options = {}) {
+    // remove all document related to same ownerId
+    if (options.ownerId && options.ownerType) {
+      await FileResource.deleteMany({ ownerId: options.ownerId, ownerType: options.ownerType });
+    }
+    return new FileResource(options).save();
   }
 }
 module.exports = FileResourceController;

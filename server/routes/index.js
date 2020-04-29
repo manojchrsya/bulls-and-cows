@@ -20,9 +20,9 @@ class Routes extends Uploads {
     this.router.get('/', this.isLoggedIn, this.getUserInstance().dashboard);
 
     this.router.post('/profile/upload',
-      this.upload.single('image'),
-      this.getUserInstance().uploadProfile,
-    );
+      this.isLoggedIn,
+      this.upload.single('profile'),
+      this.getUserInstance().uploadProfile);
 
     this.router.get('/login', this.getUserInstance().login);
     this.router.post('/login', this.passport.authenticate('local-login', {

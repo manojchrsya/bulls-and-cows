@@ -21,11 +21,14 @@
               <form class="dropzone-profile" data-dz-url="/profile/upload">
                 <div class="position-relative text-center bg-secondary dropzone rounded p-6">
                     <div class="avatar bg-primary text-white mb-5">
-                        <!-- <i class="icon-md fe-image"></i> -->
-                        <img class="avatar-img" src="images/12.jpg" alt="">
+                      <% if (user.profilePic) { %>
+                        <img class="avatar-img" src="<%= user.profilePic.url %>" alt="">
+                      <% } else { %>
+                        <i class="icon-md fe-image"></i>
+                      <% } %>
                     </div>
                     <p class="small text-muted mb-0">You can upload jpg, gif or png files. <br> Max file size 3mb.</p>
-                    <input id="upload-user-photo" name="file" class="d-none dropzone-button-js dz-clickable" type="button">
+                    <input id="upload-user-photo" class="d-none dropzone-button-js dz-clickable" type="button">
                     <label class="stretched-label mb-0" for="upload-user-photo"></label>
                 </div>
               </form>
