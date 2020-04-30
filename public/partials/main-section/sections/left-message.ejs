@@ -1,7 +1,11 @@
 <div class="message">
   <!-- Avatar -->
   <a class="avatar avatar-sm mr-4 mr-lg-5" href="#" data-chat-sidebar-toggle="#chat-1-user-profile">
-      <img class="avatar-img" src="images/9.jpg" alt="">
+    <% if (user.profilePic) { %>
+      <img class="avatar-img profile-pic" src="<%= user.profilePic.url %>" alt="<%= user.name %>">
+    <% } else { %>
+      <i class="icon-md fe-image"></i>
+    <% } %>
   </a>
 
   <!-- Message: body -->
@@ -13,7 +17,7 @@
 
               <!-- Message: content -->
               <div class="message-content bg-light">
-                  <!-- <h6 class="mb-2">Matthew Wiggins</h6> -->
+                  <!-- <h6 class="mb-2"><%= user.name %></h6> -->
                   <div><%= message %></div>
 
                   <div class="mt-1">

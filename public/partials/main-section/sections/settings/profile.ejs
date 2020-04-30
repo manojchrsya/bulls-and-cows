@@ -22,7 +22,7 @@
                 <div class="position-relative text-center bg-secondary dropzone rounded p-6">
                     <div class="avatar bg-primary text-white mb-5">
                       <% if (user.profilePic) { %>
-                        <img class="avatar-img" src="<%= user.profilePic.url %>" alt="">
+                        <img class="avatar-img profile-pic" src="<%= user.profilePic.url %>" alt="<%= user.name %>">
                       <% } else { %>
                         <i class="icon-md fe-image"></i>
                       <% } %>

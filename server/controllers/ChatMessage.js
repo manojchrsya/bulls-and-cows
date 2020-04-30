@@ -25,7 +25,10 @@ class ChatMessageController {
         },
       ],
     };
-    return (await ChatMessage.find(query).sort({ createdOn: -1 }).limit(10)).reverse();
+    return (await ChatMessage.find(query)
+      .populate({ path: 'user', select: 'name email', populate: { path: 'profilePic' } })
+      .sort({ createdOn: -1 })
+      .limit(10)).reverse();
   }
 }
 

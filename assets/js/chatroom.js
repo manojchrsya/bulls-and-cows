@@ -57,25 +57,15 @@ $(function() {
   const profileDropZone = new Dropzone($profileDropZone, {
     url, clickable: `#${clickable}`, paramName: 'profile'
   });
-  profileDropZone.on('success', (file) => {
+  profileDropZone.on('success', (file, response) => {
     file.previewElement.innerHTML = "";
-
+    if (response && response.url) {
+      $("img.profile-pic").attr('src', response.url);
+    }
   });
   profileDropZone.on('error', (error, message) => {
     console.log(message);
   });
-  // [].forEach.call(document.querySelectorAll('.dropzone-form-js'), (el) => {
-    //   const clickable = el.querySelector('.dropzone-button-js').id;
-    //   const url = el.getAttribute('data-dz-url');
-    //   const previewsContainer = el.querySelector('.dropzone-previews-js');
-
-    //   const myDropzone = new Dropzone(el, {
-    //     url,
-    //     previewTemplate: template ? template.innerHTML : '',
-    //     previewsContainer,
-    //     clickable: `#${clickable}`,
-    //   });
-    // });
 
   $chatForm.on('submit', function(e) {
     e.preventDefault();
@@ -97,6 +87,9 @@ $(function() {
         if (data.message && data.senderId === receiverId) {
           $chatContainer.append(data.message).hide().fadeIn();
         }
+        if (data.profile) {
+          console.log(data.profile);
+        }
       });
     },
     addUser: function() {
@@ -104,7 +97,6 @@ $(function() {
     },
     saveProfile: function() {
       socket.on('save profile', (data) => {
-        console.log(data);
         $("#profile-success").hide().fadeIn().fadeOut(3000);
       });
     }

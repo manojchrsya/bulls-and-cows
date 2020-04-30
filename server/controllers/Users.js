@@ -48,6 +48,16 @@ class UserController extends FileResource {
     };
     return this.saveFileDetails(fileData);
   }
+
+  // eslint-disable-next-line class-methods-use-this
+  async getUserDetailById(userId) {
+    const query = {};
+    // eslint-disable-next-line no-underscore-dangle
+    query._id = userId;
+    return User.find(query).select({
+      name: 1, email: 1, mobile: 1,
+    }).populate('profilePic', ['name', 'url']);
+  }
 }
 
 module.exports = UserController;

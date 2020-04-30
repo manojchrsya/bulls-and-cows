@@ -12,8 +12,8 @@
 - change header value after selecting the chat user -- done
 - load last 10 message and show on chat screen -- done
 - handle case for offline user -- done
-- add setting page and add user info -- wip
-- user can able to see selected user info at right side baar
+- add setting page and add user info -- done
+- user can able to see selected user info at right side baar -- wip
 - handle user's contacts and show them on contact list
 - implement logout functionality
 - search user from chat screen

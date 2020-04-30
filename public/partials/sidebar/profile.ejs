@@ -14,7 +14,11 @@
                       <div class="text-center py-6">
                           <!-- Photo -->
                           <div class="avatar avatar-xl mb-5">
-                              <img class="avatar-img" src="images/12.jpg" alt="">
+                              <% if (user.profilePic) { %>
+                                <img class="avatar-img profile-pic" src="<%= user.profilePic.url %>" alt="<%= user.name %>">
+                              <% } else { %>
+                                <i class="icon-md fe-user"></i>
+                              <% } %>
                           </div>
 
                           <h5><%= user.name %></h5>

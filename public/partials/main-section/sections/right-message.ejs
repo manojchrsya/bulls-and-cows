@@ -1,7 +1,11 @@
 <div class="message message-right">
   <!-- Avatar -->
   <div class="avatar avatar-sm ml-4 ml-lg-5 d-none d-lg-block">
-      <img class="avatar-img" src="images/12.jpg" alt="">
+    <% if (user.profilePic) { %>
+      <img class="avatar-img" src="<%= user.profilePic.url %>" alt="<%= user.name %>">
+    <% } else { %>
+      <i class="icon-md fe-user"></i>
+    <% } %>
   </div>
 
   <!-- Message: body -->
@@ -29,6 +33,7 @@
               <!-- Message: dropdown -->
               <!-- Message: content -->
               <div class="message-content bg-primary text-white">
+                  <!-- <h6 class="mb-2"><%= user.name %></h6> -->
                   <div><%= message %></div>
                   <div class="mt-1">
                       <small class="opacity-65"><%= timeAgo %></small>

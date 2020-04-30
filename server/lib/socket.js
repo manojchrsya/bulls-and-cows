@@ -76,6 +76,10 @@ class Socket {
       if (data.senderId && data.receiverId) {
         const chatMessages = await this.chatMessage.getChatMessages(data);
         const messages = [];
+        const [sender, receiver] = await Promise.all([
+          this.userInstance.getUserDetailById(data.senderId),
+          this.userInstance.getUserDetailById(data.receiverId),
+        ]);
         await Promise.mapSeries(chatMessages, async (chat) => {
           let currentChat;
           chat.timeAgo = moment(chat.createdOn).fromNow().toString();
@@ -86,8 +90,11 @@ class Socket {
           }
           messages.push(currentChat);
         });
+        const profile = await ejs.renderFile('./public/partials/main-section/sections/user-details.ejs', { user: receiver });
         socket.emit('new message', {
-          message: messages.join(''), senderId: data.receiverId,
+          message: messages.join(''),
+          senderId: data.receiverId,
+          profile,
         });
       }
     });
