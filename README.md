@@ -20,8 +20,10 @@
 - search user from chat screen
 - remove user's socket id after disconnect -- done
 - reconnect on disconnect the socket connection -- done
-- handle last seen detail of user
+- handle last seen detail of user -- done
 - encrypt mesasge
 - change status once user get online or offline
 - handle error message and show status bar at top
-- manage contacts and contacts user  mappings
+- manage contacts and contacts user mappings
+- create groups against the user
+- chat functionality in group users

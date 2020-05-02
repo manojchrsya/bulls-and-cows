@@ -177,13 +177,6 @@
       });
     }
 
-    //
-    // Scroll to end of chat
-    //
-
-    if (document.querySelector('.end-of-chat')) {
-      document.querySelector('.end-of-chat').scrollIntoView();
-    }
 
     //
     // Autosize

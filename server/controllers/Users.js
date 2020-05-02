@@ -26,7 +26,7 @@ class UserController extends FileResource {
 
   // eslint-disable-next-line class-methods-use-this
   async saveProfile(options = {}) {
-    const fields = ['id', 'name', 'mobile', 'bio', 'social.twitter', 'social.facebook',
+    const fields = ['id', 'name', 'mobile', 'bio', 'lastSeen', 'social.twitter', 'social.facebook',
       'social.instagram', 'social.github', 'social.slack'];
     const profileData = _.pickBy(_.pick(options, fields), _.identity);
     profileData.bio = _.trim(profileData.bio);
@@ -51,7 +51,7 @@ class UserController extends FileResource {
     const query = {};
     // eslint-disable-next-line no-underscore-dangle
     query._id = userId;
-    return User.findOne(query).populate('profilePic', ['name', 'url']);
+    return User.findOne(query).populate('profilePic', ['name', 'url']).lean();
   }
 }
 

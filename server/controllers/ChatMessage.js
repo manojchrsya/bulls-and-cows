@@ -63,7 +63,7 @@ class ChatMessageController {
     const data = results.map((result) => {
       const index = _.findIndex(results, { senderId: result.receiverId, receiverId: result.senderId });
       if (index !== -1) results.splice(index, 1);
-      result.createdOn = moment(result.createdOn).format('LT');
+      result.createdOn = moment(result.createdOn).calendar();
       return _.omit(result, '_id');
     });
     return _.compact(data);

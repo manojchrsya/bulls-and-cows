@@ -25,6 +25,7 @@ class Socket {
   addUser(socket) {
     socket.on('add user', async (data) => {
       this.users[data.userId] = socket.id;
+      socket.userId = data.userId;
     });
   }
 
@@ -94,6 +95,7 @@ class Socket {
           }
           messages.push(currentChat);
         });
+        receiver.lastSeen = receiver.lastSeen ? moment(receiver.lastSeen).calendar() : '-';
         const profile = await ejs.renderFile('./public/partials/main-section/sections/right-profile.ejs', { user: receiver });
         socket.emit('new message', {
           message: messages.join(''),
@@ -118,7 +120,10 @@ class Socket {
 
   // eslint-disable-next-line class-methods-use-this
   onDisconnect(socket) {
-    socket.on('disconnect', () => {
+    socket.on('disconnect', async () => {
+      if (socket.userId) {
+        await this.userInstance.saveProfile({ id: socket.userId, lastSeen: moment().toDate() });
+      }
       socket.emit('disconnected');
     });
   }

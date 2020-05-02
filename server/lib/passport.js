@@ -1,3 +1,4 @@
+const moment = require('moment');
 // load all the things we need
 const LocalStrategy = require('passport-local').Strategy;
 // load up the user model
@@ -20,7 +21,10 @@ class Passport {
   deserialize() {
     // used to deserialize the user
     this.passport.deserializeUser((id, done) => {
-      User.findById(id, (err, user) => done(err, user)).populate('profilePic', ['name', 'url']);
+      User.findById(id, (err, user) => {
+        user.lastSeen = user.lastSeen ? moment(user.lastSeen).calendar() : '';
+        return done(err, user);
+      }).populate('profilePic', ['name', 'url']).lean();
     });
   }
 

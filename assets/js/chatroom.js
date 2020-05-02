@@ -41,6 +41,7 @@ $(function() {
     $('nav.nav a').removeClass('active');
     $(this).addClass('active');
     $('#header-user-name').text(currentUser.name);
+    $('#header-user-status').text(currentUser.lastSeen);
     if (currentUser.profilePic && currentUser.profilePic.url) {
       const image = new Image();
       image.src = currentUser.profilePic.url;
@@ -55,10 +56,8 @@ $(function() {
     $('#main-content').addClass('main-visible');
     $('#initial-chat, #user-settings').fadeOut(function(){
       $('#chat-screen').fadeIn();
-    })
-    $('.chat-content').animate({
-      scrollTop: 1000
-    }, 800);
+      chat.scrollToEnd();
+    });
   });
   $profileDropZone = document.querySelector('.dropzone-profile');
   const url = $profileDropZone.getAttribute('data-dz-url');
@@ -101,6 +100,7 @@ $(function() {
         if (data.profile) {
           $("#chat-1-info").html(data.profile);
           this.chatSideBar();
+          this.scrollToEnd();
         }
       });
     },
@@ -127,7 +127,12 @@ $(function() {
           });
         }, false);
       });
-    }
+    },
+    scrollToEnd: function() {
+      if (document.querySelector('.end-of-chat')) {
+        document.querySelector('.end-of-chat').scrollIntoView();
+      }
+    },
   };
 
   chat.init();

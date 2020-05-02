@@ -1,4 +1,6 @@
 const _ = require('lodash');
+const moment = require('moment');
+
 const User = require('../controllers/Users');
 const ChatMessage = require('../controllers/ChatMessage');
 
@@ -35,6 +37,7 @@ class UserView {
       const chatMessage = _.find(chatMessages,
         message => message.senderId === friendId || message.receiverId === friendId);
       if (chatMessage) friend.chat = chatMessage;
+      friend.lastSeen = friend.lastSeen ? moment(friend.lastSeen).calendar() : '';
       return friend;
     });
     res.render('home', { user: req.user, friends });

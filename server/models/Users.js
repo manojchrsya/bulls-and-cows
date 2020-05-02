@@ -10,6 +10,7 @@ const UsersSchema = new Schema({
   email: { type: String, required: true },
   dob: { type: Date },
   bio: { type: String },
+  lastSeen: { type: Date },
   password: { type: String, required: true, select: false },
   social: {
     twitter: { type: String },
@@ -18,7 +19,7 @@ const UsersSchema = new Schema({
     github: { type: String },
     slack: { type: String },
   },
-}, { toObject: { virtuals: true } });
+}, { toObject: { virtuals: true }, timestamps: { createdAt: 'createdOn', updatedAt: 'updatedOn' } });
 
 UsersSchema.virtual('profilePic', {
   ref: 'FileResource',
