@@ -25,11 +25,14 @@ class Routes extends Uploads {
       this.getUserInstance().uploadProfile);
 
     this.router.get('/login', this.getUserInstance().login);
+
     this.router.post('/login', this.passport.authenticate('local-login', {
       successRedirect: '/', // redirect to the secure profile section
       failureRedirect: '/login', // redirect back to the signup page if there is an error
       failureFlash: true, // allow flash messages
     }));
+    this.router.post('/logout', this.getUserInstance().logout);
+
     this.router.get('/signup', this.getUserInstance().signup);
     this.router.post('/signup', this.passport.authenticate('local-signup', {
       successRedirect: '/', // redirect to the secure profile section

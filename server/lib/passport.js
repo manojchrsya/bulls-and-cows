@@ -14,17 +14,13 @@ class Passport {
 
   serialize() {
     // used to serialize the user for the session
-    this.passport.serializeUser((user, done) => {
-      done(null, user);
-    });
+    this.passport.serializeUser((user, done) => done(null, user));
   }
 
   deserialize() {
     // used to deserialize the user
     this.passport.deserializeUser((id, done) => {
-      User.findById(id, (err, user) => {
-        done(err, user);
-      }).populate('profilePic', ['name', 'url']);
+      User.findById(id, (err, user) => done(err, user)).populate('profilePic', ['name', 'url']);
     });
   }
 

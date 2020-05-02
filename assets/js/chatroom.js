@@ -40,7 +40,16 @@ $(function() {
     receiverId = currentUser._id;
     $('nav.nav a').removeClass('active');
     $(this).addClass('active');
-    $('#header-user-name').text(currentUser.name)
+    $('#header-user-name').text(currentUser.name);
+    if (currentUser.profilePic && currentUser.profilePic.url) {
+      const image = new Image();
+      image.src = currentUser.profilePic.url;
+      image.alt = currentUser.name;
+      image.class = 'avatar-img';
+      $('#header-user-profile').html(image)
+    } else {
+      $('#header-user-profile').html(`<i class="icon-md fe-user"></i>`);
+    }
     $chatContainer.html('');
     socket.emit('load mesasges', { receiverId, senderId: userId });
     $('#main-content').addClass('main-visible');
@@ -60,7 +69,7 @@ $(function() {
   profileDropZone.on('success', (file, response) => {
     file.previewElement.innerHTML = "";
     if (response && response.url) {
-      $("img.profile-pic").attr('src', response.url);
+      $("img.profile-pic").attr('src', `${response.url}?v=${new Date().getTime()}`);
     }
   });
   profileDropZone.on('error', (error, message) => {
@@ -79,8 +88,10 @@ $(function() {
   const chat = {
     init: function() {
       this.addUser();
+      this.onDisconnect();
       this.newMessage();
       this.saveProfile();
+      this.chatSideBar();
     },
     newMessage: function() {
       socket.on('new message', (data) => {
@@ -88,7 +99,8 @@ $(function() {
           $chatContainer.append(data.message).hide().fadeIn();
         }
         if (data.profile) {
-          console.log(data.profile);
+          $("#chat-1-info").html(data.profile);
+          this.chatSideBar();
         }
       });
     },
@@ -98,6 +110,22 @@ $(function() {
     saveProfile: function() {
       socket.on('save profile', (data) => {
         $("#profile-success").hide().fadeIn().fadeOut(3000);
+      });
+    },
+    onDisconnect: function() {
+      socket.on('disconnect', (data) => {
+        this.addUser();
+      });
+    },
+    chatSideBar: function() {
+      [].forEach.call(document.querySelectorAll('[data-chat-sidebar-close]'), (a) => {
+        a.addEventListener('click', (event) => {
+          event.preventDefault();
+          document.body.classList.remove('sidebar-is-open');
+          [].forEach.call(document.querySelectorAll('.chat-sidebar'), (a) => {
+            a.classList.remove('chat-sidebar-visible');
+          });
+        }, false);
       });
     }
   };

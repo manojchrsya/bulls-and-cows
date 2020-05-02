@@ -130,19 +130,7 @@
       });
     });
 
-    //
-    // Close all chat`s sidebars
-    //
 
-    [].forEach.call(document.querySelectorAll('[data-chat-sidebar-close]'), (a) => {
-      a.addEventListener('click', (event) => {
-        event.preventDefault();
-        document.body.classList.remove('sidebar-is-open');
-        [].forEach.call(document.querySelectorAll('.chat-sidebar'), (a) => {
-          a.classList.remove('chat-sidebar-visible');
-        });
-      }, false);
-    });
 
     //
     // Dropzone

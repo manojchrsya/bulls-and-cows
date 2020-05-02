@@ -32,16 +32,6 @@
               <div class="card mb-6">
                   <div class="card-body">
                       <ul class="list-group list-group-flush">
-                          <!-- <li class="list-group-item px-0 py-6">
-                              <div class="media align-items-center">
-                                  <div class="media-body">
-                                      <p class="small text-muted mb-0">Country</p>
-                                      <p>Warsaw, Poland</p>
-                                  </div>
-                                  <i class="text-muted icon-sm fe-globe"></i>
-                              </div>
-                          </li> -->
-
                           <li class="list-group-item px-0 py-6">
                               <div class="media align-items-center">
                                   <div class="media-body">
@@ -122,10 +112,12 @@
 
                   <div class="col">
                       <!-- Button -->
-                      <button type="button" class="btn btn-lg btn-block btn-basic d-flex align-items-center">
-                          Logout
-                          <span class="fe-log-out ml-auto"></span>
-                      </button>
+                      <form action="/logout" method="post">
+                        <button type="submit" class="btn btn-lg btn-block btn-basic d-flex align-items-center">
+                            Logout
+                            <span class="fe-log-out ml-auto"></span>
+                        </button>
+                      </form>
                   </div>
               </div>
           </div>

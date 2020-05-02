@@ -10,9 +10,7 @@ class UserController extends FileResource {
       const regex = new RegExp(options.q);
       query.name = { $regex: regex, $options: 'i' };
     }
-    return User.find(query).select({
-      name: 1, email: 1, dob: 1, mobile: 1,
-    });
+    return User.find(query);
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -23,9 +21,7 @@ class UserController extends FileResource {
       // eslint-disable-next-line no-underscore-dangle
       query._id = { $nin: [user._id] };
     }
-    return User.find(query).select({
-      name: 1, email: 1, dob: 1, mobile: 1,
-    });
+    return User.find(query).limit(10).populate('profilePic', ['name', 'url']).lean();
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -33,6 +29,7 @@ class UserController extends FileResource {
     const fields = ['id', 'name', 'mobile', 'bio', 'social.twitter', 'social.facebook',
       'social.instagram', 'social.github', 'social.slack'];
     const profileData = _.pickBy(_.pick(options, fields), _.identity);
+    profileData.bio = _.trim(profileData.bio);
     return User.findOneAndUpdate({ _id: options.id }, profileData, { upsert: true });
   }
 
@@ -54,9 +51,7 @@ class UserController extends FileResource {
     const query = {};
     // eslint-disable-next-line no-underscore-dangle
     query._id = userId;
-    return User.find(query).select({
-      name: 1, email: 1, mobile: 1,
-    }).populate('profilePic', ['name', 'url']);
+    return User.findOne(query).populate('profilePic', ['name', 'url']);
   }
 }
 

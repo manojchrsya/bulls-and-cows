@@ -32,6 +32,8 @@ class Socket {
     socket.on('new message', async (data) => {
       if (data.senderId && data.receiverId) {
         data.timeAgo = moment().fromNow().toString();
+        // adding user details in data object
+        data.user = await this.userInstance.getUserDetailById(data.senderId);
         const [receiverMessage, senderMessage] = await Promise.all([
           ejs.renderFile('./public/partials/main-section/sections/right-message.ejs', data),
           ejs.renderFile('./public/partials/main-section/sections/left-message.ejs', data),
@@ -84,13 +86,15 @@ class Socket {
           let currentChat;
           chat.timeAgo = moment(chat.createdOn).fromNow().toString();
           if (chat.senderId === data.senderId) {
+            chat.user = sender;
             currentChat = await ejs.renderFile('./public/partials/main-section/sections/left-message.ejs', chat);
           } else {
+            chat.user = receiver;
             currentChat = await ejs.renderFile('./public/partials/main-section/sections/right-message.ejs', chat);
           }
           messages.push(currentChat);
         });
-        const profile = await ejs.renderFile('./public/partials/main-section/sections/user-details.ejs', { user: receiver });
+        const profile = await ejs.renderFile('./public/partials/main-section/sections/right-profile.ejs', { user: receiver });
         socket.emit('new message', {
           message: messages.join(''),
           senderId: data.receiverId,
@@ -115,10 +119,7 @@ class Socket {
   // eslint-disable-next-line class-methods-use-this
   onDisconnect(socket) {
     socket.on('disconnect', () => {
-      // echo globally that this client has left
-      socket.broadcast.emit('user left', {
-        username: socket.username,
-      });
+      socket.emit('disconnected');
     });
   }
 }
