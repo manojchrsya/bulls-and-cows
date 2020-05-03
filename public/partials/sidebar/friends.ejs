@@ -8,377 +8,53 @@
               <h2 class="font-bold mb-6">Friends</h2>
               <!-- Title -->
 
-              <!-- Search -->
-              <form class="mb-6">
-                  <div class="input-group">
-                      <input type="text" class="form-control form-control-lg" placeholder="Search for messages or users..." aria-label="Search for messages or users...">
-                      <div class="input-group-append">
-                          <button class="btn btn-lg btn-ico btn-secondary btn-minimal" type="submit">
-                              <i class="fe-search"></i>
-                          </button>
-                      </div>
-                  </div>
-              </form>
-              <!-- Search -->
+              <!-- Tabs -->
+              <ul class="nav nav-tabs nav-justified mb-6" role="tablist">
+                <li class="nav-item">
+                    <a href="#new-friend-panel" class="nav-link new-friend-panel active" data-toggle="tab" role="tab" aria-selected="true">Find New Friends</a>
+                </li>
 
+                  <li class="nav-item">
+                      <a href="#contact-panel" class="nav-link contact-panel" data-toggle="tab" role="tab" aria-selected="false">Contacts</a>
+                  </li>
+              </ul>
+              <!-- Search -->
               <!-- Button -->
-              <button type="button" class="btn btn-lg btn-block btn-secondary d-flex align-items-center mb-6" data-toggle="modal" data-target="#invite-friends">
+              <!-- <button type="button" class="btn btn-lg btn-block btn-secondary d-flex align-items-center mb-6" data-toggle="modal" data-target="#invite-friends">
                   Invite friends
                   <i class="fe-users ml-auto"></i>
-              </button>
-
+              </button> -->
+              <!-- Tabs -->
               <!-- Friends -->
-              <nav class="mb-n6">
-
-                  <div class="mb-6">
-                      <small class="text-uppercase">A</small>
+              <div class="tab-content" role="tablist">
+                <!-- Chat details -->
+                <div id="new-friend-panel" class="tab-pane fade show active" role="tabpanel">
+                  <!-- Search -->
+                  <form class="mb-6">
+                    <div class="input-group">
+                        <input type="text" id="search-contact" class="form-control form-control-lg" placeholder="Search friends by name..." aria-label="Search for messages or users...">
+                        <div class="input-group-append">
+                            <button class="btn btn-lg btn-ico btn-secondary btn-minimal" type="button">
+                                <i class="fe-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                  </form>
+                  <div class="friend-list">
+                    <div class="flex-column justify-content-center text-center">
+                      <h6>Search results not found.</h6>
+                    </div>
                   </div>
-
-                  <!-- Friend -->
-                  <div class="card mb-6">
-                      <div class="card-body">
-
-                          <div class="media">
-
-                              <div class="avatar avatar-online mr-5">
-                                  <img class="avatar-img" src="images/10.jpg" alt="Anna Bridges">
-                              </div>
-
-
-                              <div class="media-body align-self-center">
-                                  <h6 class="mb-0">Anna Bridges</h6>
-                                  <small class="text-muted">Online</small>
-                              </div>
-
-                              <div class="align-self-center ml-5">
-                                  <div class="dropdown z-index-max">
-                                      <a href="#" class="btn btn-sm btn-ico btn-link text-muted w-auto" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                          <i class="fe-more-vertical"></i>
-                                      </a>
-                                      <div class="dropdown-menu">
-                                          <a class="dropdown-item d-flex align-items-center" href="#">
-                                              New chat <span class="ml-auto fe-edit-2"></span>
-                                          </a>
-                                          <a class="dropdown-item d-flex align-items-center" href="#">
-                                              Delete <span class="ml-auto fe-trash-2"></span>
-                                          </a>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-
-                          <!-- Link -->
-                          <a href="https://themes.2the.me/Messenger-1.1/chat-2.html" class="stretched-link"></a>
-
-                      </div>
+                </div>
+                <div id="contact-panel" class="tab-pane fade" role="tabpanel">
+                  <div class="contact-list">
+                    <div class="flex-column justify-content-center text-center">
+                      <h6>Contacts not found.</h6>
+                    </div>
                   </div>
-                  <!-- Friend -->
-
-                  <div class="mb-6">
-                      <small class="text-uppercase">B</small>
-                  </div>
-
-                  <!-- Friend -->
-                  <div class="card mb-6">
-                      <div class="card-body">
-
-                          <div class="media">
-
-
-                              <div class="avatar mr-5">
-                                  <img class="avatar-img" src="images/6.jpg" alt="Brian Dawson">
-                              </div>
-
-                              <div class="media-body align-self-center">
-                                  <h6 class="mb-0">Brian Dawson</h6>
-                                  <small class="text-muted">last seen 2 hours ago</small>
-                              </div>
-
-                              <div class="align-self-center ml-5">
-                                  <div class="dropdown z-index-max">
-                                      <a href="#" class="btn btn-sm btn-ico btn-link text-muted w-auto" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                          <i class="fe-more-vertical"></i>
-                                      </a>
-                                      <div class="dropdown-menu">
-                                          <a class="dropdown-item d-flex align-items-center" href="#">
-                                              New chat <span class="ml-auto fe-edit-2"></span>
-                                          </a>
-                                          <a class="dropdown-item d-flex align-items-center" href="#">
-                                              Delete <span class="ml-auto fe-trash-2"></span>
-                                          </a>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-
-                          <!-- Link -->
-                          <a href="#" class="stretched-link"></a>
-
-                      </div>
-                  </div>
-                  <!-- Friend -->
-
-                  <div class="mb-6">
-                      <small class="text-uppercase">L</small>
-                  </div>
-
-                  <!-- Friend -->
-                  <div class="card mb-6">
-                      <div class="card-body">
-
-                          <div class="media">
-
-
-                              <div class="avatar mr-5">
-                                  <img class="avatar-img" src="images/5.jpg" alt="Leslie Sutton">
-                              </div>
-
-                              <div class="media-body align-self-center">
-                                  <h6 class="mb-0">Leslie Sutton</h6>
-                                  <small class="text-muted">last seen 3 days ago</small>
-                              </div>
-
-                              <div class="align-self-center ml-5">
-                                  <div class="dropdown z-index-max">
-                                      <a href="#" class="btn btn-sm btn-ico btn-link text-muted w-auto" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                          <i class="fe-more-vertical"></i>
-                                      </a>
-                                      <div class="dropdown-menu">
-                                          <a class="dropdown-item d-flex align-items-center" href="#">
-                                              New chat <span class="ml-auto fe-edit-2"></span>
-                                          </a>
-                                          <a class="dropdown-item d-flex align-items-center" href="#">
-                                              Delete <span class="ml-auto fe-trash-2"></span>
-                                          </a>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-
-                          <!-- Link -->
-                          <a href="#" class="stretched-link"></a>
-
-                      </div>
-                  </div>
-                  <!-- Friend -->
-
-                  <div class="mb-6">
-                      <small class="text-uppercase">M</small>
-                  </div>
-
-                  <!-- Friend -->
-                  <div class="card mb-6">
-                      <div class="card-body">
-
-                          <div class="media">
-
-
-                              <div class="avatar mr-5">
-                                  <img class="avatar-img" src="images/4.jpg" alt="Matthew Wiggins">
-                              </div>
-
-                              <div class="media-body align-self-center">
-                                  <h6 class="mb-0">Matthew Wiggins</h6>
-                                  <small class="text-muted">last seen 3 days ago</small>
-                              </div>
-
-                              <div class="align-self-center ml-5">
-                                  <div class="dropdown z-index-max">
-                                      <a href="#" class="btn btn-sm btn-ico btn-link text-muted w-auto" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                          <i class="fe-more-vertical"></i>
-                                      </a>
-                                      <div class="dropdown-menu">
-                                          <a class="dropdown-item d-flex align-items-center" href="#">
-                                              New chat <span class="ml-auto fe-edit-2"></span>
-                                          </a>
-                                          <a class="dropdown-item d-flex align-items-center" href="#">
-                                              Delete <span class="ml-auto fe-trash-2"></span>
-                                          </a>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-
-                          <!-- Link -->
-                          <a href="#" class="stretched-link"></a>
-
-                      </div>
-                  </div>
-                  <!-- Friend -->
-
-                  <div class="mb-6">
-                      <small class="text-uppercase">S</small>
-                  </div>
-
-                  <!-- Friend -->
-                  <div class="card mb-6">
-                      <div class="card-body">
-
-                          <div class="media">
-
-
-                              <div class="avatar mr-5">
-                                  <img class="avatar-img" src="images/7.jpg" alt="Simon Hensley">
-                              </div>
-
-                              <div class="media-body align-self-center">
-                                  <h6 class="mb-0">Simon Hensley</h6>
-                                  <small class="text-muted">last seen 3 days ago</small>
-                              </div>
-
-                              <div class="align-self-center ml-5">
-                                  <div class="dropdown z-index-max">
-                                      <a href="#" class="btn btn-sm btn-ico btn-link text-muted w-auto" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                          <i class="fe-more-vertical"></i>
-                                      </a>
-                                      <div class="dropdown-menu">
-                                          <a class="dropdown-item d-flex align-items-center" href="#">
-                                              New chat <span class="ml-auto fe-edit-2"></span>
-                                          </a>
-                                          <a class="dropdown-item d-flex align-items-center" href="#">
-                                              Delete <span class="ml-auto fe-trash-2"></span>
-                                          </a>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-
-                          <!-- Link -->
-                          <a href="#" class="stretched-link"></a>
-
-                      </div>
-                  </div>
-                  <!-- Friend -->
-
-                  <div class="mb-6">
-                      <small class="text-uppercase">W</small>
-                  </div>
-
-                  <!-- Friend -->
-                  <div class="card mb-6">
-                      <div class="card-body">
-
-                          <div class="media">
-
-
-                              <div class="avatar mr-5">
-                                  <img class="avatar-img" src="images/9.jpg" alt="William Wright">
-                              </div>
-
-                              <div class="media-body align-self-center">
-                                  <h6 class="mb-0">William Wright</h6>
-                                  <small class="text-muted">last seen 3 days ago</small>
-                              </div>
-
-                              <div class="align-self-center ml-5">
-                                  <div class="dropdown z-index-max">
-                                      <a href="#" class="btn btn-sm btn-ico btn-link text-muted w-auto" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                          <i class="fe-more-vertical"></i>
-                                      </a>
-                                      <div class="dropdown-menu">
-                                          <a class="dropdown-item d-flex align-items-center" href="#">
-                                              New chat <span class="ml-auto fe-edit-2"></span>
-                                          </a>
-                                          <a class="dropdown-item d-flex align-items-center" href="#">
-                                              Delete <span class="ml-auto fe-trash-2"></span>
-                                          </a>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-
-                          <!-- Link -->
-                          <a href="#" class="stretched-link"></a>
-
-                      </div>
-                  </div>
-                  <!-- Friend --><!-- Friend -->
-                  <div class="card mb-6">
-                      <div class="card-body">
-
-                          <div class="media">
-
-
-                              <div class="avatar mr-5">
-                                  <img class="avatar-img" src="images/3.jpg" alt="William Greer">
-                              </div>
-
-                              <div class="media-body align-self-center">
-                                  <h6 class="mb-0">William Greer</h6>
-                                  <small class="text-muted">last seen 10 minutes ago</small>
-                              </div>
-
-                              <div class="align-self-center ml-5">
-                                  <div class="dropdown z-index-max">
-                                      <a href="#" class="btn btn-sm btn-ico btn-link text-muted w-auto" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                          <i class="fe-more-vertical"></i>
-                                      </a>
-                                      <div class="dropdown-menu">
-                                          <a class="dropdown-item d-flex align-items-center" href="#">
-                                              New chat <span class="ml-auto fe-edit-2"></span>
-                                          </a>
-                                          <a class="dropdown-item d-flex align-items-center" href="#">
-                                              Delete <span class="ml-auto fe-trash-2"></span>
-                                          </a>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-
-                          <!-- Link -->
-                          <a href="#" class="stretched-link"></a>
-
-                      </div>
-                  </div>
-                  <!-- Friend -->
-
-                  <div class="mb-6">
-                      <small class="text-uppercase">Z</small>
-                  </div>
-
-                  <!-- Friend -->
-                  <div class="card mb-6">
-                      <div class="card-body">
-
-                          <div class="media">
-
-
-                              <div class="avatar mr-5">
-                                  <img class="avatar-img" src="images/7.jpg" alt="Zane Mayes">
-                              </div>
-
-                              <div class="media-body align-self-center">
-                                  <h6 class="mb-0">Zane Mayes</h6>
-                                  <small class="text-muted">last seen 3 days ago</small>
-                              </div>
-
-                              <div class="align-self-center ml-5">
-                                  <div class="dropdown z-index-max">
-                                      <a href="#" class="btn btn-sm btn-ico btn-link text-muted w-auto" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                          <i class="fe-more-vertical"></i>
-                                      </a>
-                                      <div class="dropdown-menu">
-                                          <a class="dropdown-item d-flex align-items-center" href="#">
-                                              New chat <span class="ml-auto fe-edit-2"></span>
-                                          </a>
-                                          <a class="dropdown-item d-flex align-items-center" href="#">
-                                              Delete <span class="ml-auto fe-trash-2"></span>
-                                          </a>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-
-                          <!-- Link -->
-                          <a href="#" class="stretched-link"></a>
-
-                      </div>
-                  </div>
-                  <!-- Friend -->
-
-              </nav>
+                </div>
+              </div>
               <!-- Friends -->
-
           </div>
       </div>
 

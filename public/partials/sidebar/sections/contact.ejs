@@ -1,0 +1,56 @@
+<nav class="mb-n6">
+  <% if (friends.length > 0) { %>
+    <% friends.forEach((user) => { %>
+    <!-- <div class="mb-6">
+        <small class="text-uppercase">A</small>
+    </div> -->
+      <div class="card mb-6 main-contact" data-friend-id="<%= user._id %>">
+          <div class="card-body">
+              <div class="media">
+                  <div class="avatar avatar-online mr-5">
+                    <% if (user.profilePic) { %>
+                      <img class="avatar-img" src="<%= user.profilePic.url %>" alt="<%= user.name %>">
+                    <% } else { %>
+                      <i class="icon-md fe-user"></i>
+                    <% } %>
+                  </div>
+                  <div class="media-body align-self-center">
+                      <h6 class="mb-0"><%= user.name %></h6>
+                      <small class="text-muted"><%= user.lastSeen %></small>
+                  </div>
+                  <div class="align-self-center ml-5">
+                      <div class="dropdown z-index-max">
+                          <a href="#" class="btn btn-sm btn-ico btn-link text-muted w-auto" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i class="fe-more-vertical"></i>
+                          </a>
+                          <div class="dropdown-menu">
+                              <!-- <a class="dropdown-item d-flex align-items-center" href="#">
+                                  New chat <span class="ml-auto fe-edit-2"></span>
+                              </a> -->
+
+                              <% if (source === 'friend') { %>
+                                <a class="dropdown-item d-flex align-items-center add-friend" href="javascript:void(0);">
+                                  Add <span class="ml-auto fe-plus"></span> </a>
+                              <% } else { %>
+                                <a class="dropdown-item d-flex align-items-center remove-contact" href="javascript:void(0);">
+                                  Delete <span class="ml-auto fe-trash-2"></span> </a>
+                              <% } %>
+                            </a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <a href="#" class="stretched-link"></a>
+          </div>
+      </div>
+    <% }) %>
+  <% } else { %>
+    <div class="flex-column justify-content-center text-center">
+      <% if (source === 'friend') { %>
+        <h6>Search results not found.</h6>
+      <% } else { %>
+        <h6>Contacts not found.</h6>
+      <% } %>
+    </div>
+  <% } %>
+</nav>

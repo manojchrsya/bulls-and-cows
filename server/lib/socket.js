@@ -3,6 +3,7 @@ const moment = require('moment');
 
 const ChatMessage = require('../controllers/ChatMessage');
 const User = require('../controllers/Users');
+const Contact = require('../controllers/Contact');
 
 
 class Socket {
@@ -10,13 +11,18 @@ class Socket {
     this.users = {};
     this.chatMessage = new ChatMessage();
     this.userInstance = new User();
+    this.contactInstance = new Contact();
     ioconn.on('connection', (socket) => {
       this.addUser(socket);
       this.newMessage(socket);
+      this.searchFriend(socket);
+      this.addFriend(socket);
       this.onTyping(socket);
       this.stopTyping(socket);
       this.onDisconnect(socket);
       this.loadMessages(socket);
+      this.loadContact(socket);
+      this.removeContact(socket);
       this.saveProfileData(socket);
     });
   }
@@ -114,6 +120,50 @@ class Socket {
         socket.emit('save profile', {
           message: 'profile updated successfully',
         });
+      }
+    });
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  searchFriend(socket) {
+    socket.on('search friend', async (data) => {
+      if (data.userId) {
+        const friendList = await this.userInstance.searchFriends(data);
+        const friends = await ejs.renderFile('./public/partials/sidebar/sections/contact.ejs', { friends: friendList, source: 'friend' });
+        socket.emit('search friend', { friends });
+      }
+    });
+  }
+
+  loadContact(socket) {
+    socket.on('load contact', async (data) => {
+      if (data.userId) {
+        const contactList = await this.userInstance.loadContact(data);
+        const contacts = await ejs.renderFile('./public/partials/sidebar/sections/contact.ejs', { friends: contactList, source: 'contact' });
+        socket.emit('load contact', { contacts });
+      }
+    });
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  addFriend(socket) {
+    socket.on('add friend', async (data) => {
+      if (data.userId && data.friendId) {
+        const [userContact] = await Promise.all([
+          this.contactInstance.addFriendByUserId(data),
+          this.contactInstance.addFriendByUserId({ userId: data.friendId, friendId: data.userId }),
+        ]);
+        socket.emit('add friend', userContact);
+      }
+    });
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  removeContact(socket) {
+    socket.on('remove contact', async (data) => {
+      if (data.userId && data.friendId) {
+        await this.contactInstance.deleteFriendByUserId(data);
+        socket.emit('remove contact', data);
       }
     });
   }

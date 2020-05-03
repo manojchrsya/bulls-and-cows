@@ -17,6 +17,7 @@
 - handle user's contacts and show them on contact list
 - implement logout functionality -- done
 - debug issue in login -- done
+- manage contacts and contacts user mappings -- wip
 - search user from chat screen
 - remove user's socket id after disconnect -- done
 - reconnect on disconnect the socket connection -- done
@@ -24,6 +25,5 @@
 - encrypt mesasge
 - change status once user get online or offline
 - handle error message and show status bar at top
-- manage contacts and contacts user mappings
 - create groups against the user
 - chat functionality in group users
