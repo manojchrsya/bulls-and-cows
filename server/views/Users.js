@@ -1,5 +1,4 @@
 const _ = require('lodash');
-const moment = require('moment');
 
 const User = require('../controllers/Users');
 const ChatMessage = require('../controllers/ChatMessage');
@@ -26,9 +25,10 @@ class UserView {
 
   // eslint-disable-next-line class-methods-use-this
   async dashboard(req, res) {
-    const friends = await userInstance.getFriendsByUserId(req.user);
     // eslint-disable-next-line no-underscore-dangle
-    const friendIds = friends.map(friend => friend._id.toString()); // _.map(friends, '_id');
+    const friends = await userInstance.loadContact({ userId: req.user._id });
+    // eslint-disable-next-line no-underscore-dangle
+    const friendIds = friends.map(friend => friend._id.toString());
     // eslint-disable-next-line no-underscore-dangle
     const chatMessages = await chatMessageInstance.getLastChatMessage({ friendIds, userId: req.user._id });
     friends.map((friend) => {
@@ -37,7 +37,6 @@ class UserView {
       const chatMessage = _.find(chatMessages,
         message => message.senderId === friendId || message.receiverId === friendId);
       if (chatMessage) friend.chat = chatMessage;
-      friend.lastSeen = friend.lastSeen ? moment(friend.lastSeen).calendar() : '';
       return friend;
     });
     res.render('home', { user: req.user, friends });
