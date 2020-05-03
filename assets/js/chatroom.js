@@ -17,6 +17,7 @@ $(function() {
       this.addFriend();
       this.loadContact();
       this.removeContact();
+      this.loadDiscussions()
     },
     newMessage: function() {
       socket.on('new message', (data) => {
@@ -87,6 +88,13 @@ $(function() {
         socket.emit('search friend', { userId, q: $('#search-contact').val().trim() });
       });
     },
+    loadDiscussions: function() {
+      socket.on('load discussions', (data) => {
+        if (data.discussions) {
+          $("#list-discussions").html(data.discussions).fadeIn();
+        }
+      });
+    },
     debounce: function(func, delay) {
       let inDebounce
       return function() {
@@ -127,7 +135,7 @@ $(function() {
     })
   });
   // set selected friend
-  $('.friend').on('click', function(e) {
+  $(document).on('click', '.friend', function(e) {
     const currentUser = JSON.parse($(this).attr('user-data'));
     receiverId = currentUser._id;
     $('nav.nav a').removeClass('active');
@@ -195,6 +203,12 @@ $(function() {
     $("#search-contact").val('');
     socket.emit('load contact', { userId });
   });
+
+  $('.chat-menu').on('click', function() {
+    $('#list-discussions').hide();
+    socket.emit('load discussions', { userId });
+  });
+
 
   chat.init();
 });

@@ -21,6 +21,7 @@ class Socket {
       this.stopTyping(socket);
       this.onDisconnect(socket);
       this.loadMessages(socket);
+      this.loadDiscussions(socket);
       this.loadContact(socket);
       this.removeContact(socket);
       this.saveProfileData(socket);
@@ -141,6 +142,16 @@ class Socket {
         const contactList = await this.userInstance.loadContact(data);
         const contacts = await ejs.renderFile('./public/partials/sidebar/sections/contact.ejs', { friends: contactList, source: 'contact' });
         socket.emit('load contact', { contacts });
+      }
+    });
+  }
+
+  loadDiscussions(socket) {
+    socket.on('load discussions', async (data) => {
+      if (data.userId) {
+        const contactList = await this.userInstance.loadDiscussions(data);
+        const discussions = await ejs.renderFile('./public/partials/sidebar/sections/discussions.ejs', { friends: contactList });
+        socket.emit('load discussions', { discussions });
       }
     });
   }

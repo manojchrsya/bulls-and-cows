@@ -4,8 +4,10 @@ const moment = require('moment');
 const User = require('../models/Users');
 const FileResource = require('./FileResource');
 const Contact = require('./Contact');
+const ChatMessage = require('./ChatMessage');
 
 const contactInstance = new Contact();
+const chatMessageInstance = new ChatMessage();
 
 class UserController extends FileResource {
   // eslint-disable-next-line class-methods-use-this
@@ -26,7 +28,7 @@ class UserController extends FileResource {
       // eslint-disable-next-line no-underscore-dangle
       query._id = { $nin: [user._id] };
     }
-    if (options.source === 'contacts' && options.userIds) {
+    if (options.source === 'contacts' && options.userIds.length > 0) {
       // eslint-disable-next-line no-underscore-dangle
       query._id = { $in: options.userIds };
     }
@@ -93,6 +95,7 @@ class UserController extends FileResource {
   async loadContact(options = {}) {
     const contacts = await contactInstance.getContactsByUserId({ userId: options.userId });
     options.userIds = _.map(contacts, 'friendId');
+    if (options.userIds.length === 0) return [];
     options.source = 'contacts';
     const contactList = await this.getFriendsByUserId({ _id: options.userId }, options);
     contactList.map((contact) => {
@@ -100,6 +103,23 @@ class UserController extends FileResource {
       return contact;
     });
     return contactList;
+  }
+
+  async loadDiscussions(options = {}) {
+    // eslint-disable-next-line no-underscore-dangle
+    const friends = await this.loadContact({ userId: options.userId });
+    // eslint-disable-next-line no-underscore-dangle
+    const friendIds = friends.map(friend => friend._id.toString());
+    // eslint-disable-next-line no-underscore-dangle
+    const chatMessages = await chatMessageInstance.getLastChatMessage({ friendIds, userId: options.userId });
+    return friends.map((friend) => {
+      // eslint-disable-next-line no-underscore-dangle
+      const friendId = friend._id.toString();
+      const chatMessage = _.find(chatMessages,
+        message => message.senderId === friendId || message.receiverId === friendId);
+      if (chatMessage) friend.chat = chatMessage;
+      return friend;
+    });
   }
 }
 

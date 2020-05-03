@@ -35,6 +35,8 @@ class ChatMessageController {
   // eslint-disable-next-line class-methods-use-this
   async getLastChatMessage(options = {}) {
     const { friendIds = [], userId } = options;
+    if (friendIds.length === 0) return [];
+
     const chatQuery = [];
     friendIds.forEach((friendId) => {
       chatQuery.push({ senderId: userId.toString(), receiverId: friendId });
